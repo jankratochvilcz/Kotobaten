@@ -1,6 +1,8 @@
-package com.kratochvil.kotobaten
+package com.kratochvil.kotobaten.viewmodel.infrastructure
 
 import android.os.AsyncTask
+import com.kratochvil.kotobaten.model.entity.SearchResult
+import com.kratochvil.kotobaten.model.service.JishoApiService
 
 class SearchTask : AsyncTask<String, Void, List<SearchResult>>() {
     var callback: ((x: List<SearchResult>) -> Unit) = {}

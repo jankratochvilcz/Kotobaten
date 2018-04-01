@@ -1,6 +1,6 @@
-package com.kratochvil.kotobaten
+package com.kratochvil.kotobaten.model.service
 
-import org.json.JSONArray
+import com.kratochvil.kotobaten.model.entity.SearchResult
 import org.json.JSONObject
 import java.io.BufferedInputStream
 import java.io.BufferedReader
