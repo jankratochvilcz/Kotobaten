@@ -1,14 +1,11 @@
 package com.kratochvil.kotobaten
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    val searchTask = SearchTask()
+    private val searchTask = SearchTask()
     /*private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -47,7 +44,8 @@ class MainActivity : AppCompatActivity() {
 //        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
-    fun displayResults(results: List<SearchResult>): Unit {
-
+    private fun displayResults(results: List<SearchResult>) {
+        val searchResultsAdapter = SearchResultAdapter(this, results)
+        search_results_list_view.adapter = searchResultsAdapter
     }
 }

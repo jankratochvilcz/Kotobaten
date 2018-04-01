@@ -1,4 +1,7 @@
 package com.kratochvil.kotobaten
 
-class SearchResult(isCommon: Boolean, japaneseWord: String, japaneseReading: String, englishTranslations: List<String>) {
-}
+class SearchResult(
+        val isCommon: Boolean,
+        val japaneseWord: String,
+        val japaneseReading: String,
+        val englishTranslations: List<String>)
