@@ -22,8 +22,14 @@ class SearchResultAdapter : BaseAdapter {
         val view = (inflater as LayoutInflater).inflate(R.layout.search_result, parent, false)
 
         val kanjiTextView = view.findViewById<TextView>(R.id.search_result_kanji_text_view)
+        val kanaTextView = view.findViewById<TextView>(R.id.search_result_kana_text_view)
+        val englishTextView = view.findViewById<TextView>(R.id.search_result_english_text_view)
+
         val searchResult = getItem(position) as SearchResult
+
         kanjiTextView.text = searchResult.japaneseWord
+        kanaTextView.text = searchResult.japaneseReading
+        englishTextView.text = searchResult.englishTranslations.first()
 
         return view
     }
@@ -36,7 +42,7 @@ class SearchResultAdapter : BaseAdapter {
     }
 
     override fun getItemId(position: Int): Long {
-        return position as Long
+        return position.toLong()
     }
 
     override fun getCount(): Int {

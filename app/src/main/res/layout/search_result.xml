@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingRight="12dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:paddingLeft="44dp">
+
+    <LinearLayout
+        android:id="@+id/search_result_japanese_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/search_result_kana_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/search_result_kanji_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"/>
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/search_result_kanji_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/search_result_english_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textStyle="italic"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/search_result_japanese_container"/>
 </android.support.constraint.ConstraintLayout>

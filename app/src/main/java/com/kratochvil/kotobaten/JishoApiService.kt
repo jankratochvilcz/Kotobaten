@@ -57,6 +57,7 @@ class JishoApiService {
             }
 
             return results
+                    .filter { it.englishTranslations.any() }
         }
         catch (ex: Exception) {
             print(ex)

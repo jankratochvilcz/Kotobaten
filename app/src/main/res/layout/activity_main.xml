@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -7,28 +8,90 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/main_search_edit_text"
+    <LinearLayout
+        android:id="@+id/main_search_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:inputType="text"
-        android:textSize="32dp"
-        android:hint="Search"
-        android:imeOptions="actionSearch"
-        android:imeActionLabel="Search"
-        android:imeActionId="1"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/main_search_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="0"
+            android:src="@drawable/ic_search_black_24dp" />
+
+        <EditText
+            android:id="@+id/main_search_edit_text"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="32dp"
+            android:hint="Search"
+            android:imeOptions="actionSearch"
+            android:imeActionLabel="Search"
+            android:imeActionId="1"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+
+
+
+    <ProgressBar
+        android:id="@+id/main_loading_results_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="@id/main_search_container"
+        app:layout_constraintTop_toTopOf="@id/main_search_container"
+        app:layout_constraintBottom_toBottomOf="@id/main_search_container"
+        android:minHeight="12pt"
+        android:maxHeight="12pt"
+        android:maxWidth="12pt"
+        android:minWidth="12pt"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/main_clear_search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="@id/main_search_container"
+        app:layout_constraintTop_toTopOf="@id/main_search_container"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/main_search_container"
+        android:drawableLeft="@drawable/ic_clear_black_24dp"
+        android:background="@android:color/transparent"
+        android:minWidth="0dp"
+        android:paddingLeft="24dp"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/main_no_results_icon"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/sakura_leaf"
+        android:layout_marginTop="144dp"
+        app:layout_constraintTop_toBottomOf="@id/main_search_container"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <ListView
         android:id="@+id/search_results_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/main_search_edit_text"/>
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        app:layout_constraintTop_toBottomOf="@id/main_search_container"
+        android:visibility="gone"/>
 
     <!--<android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
