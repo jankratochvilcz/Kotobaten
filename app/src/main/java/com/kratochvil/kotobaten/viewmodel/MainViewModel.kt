@@ -5,10 +5,12 @@ import android.databinding.Bindable
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.model.entity.SearchResult
 import com.kratochvil.kotobaten.model.service.KeyboardService
+import com.kratochvil.kotobaten.model.service.NavigationService
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchTask
 
 class MainViewModel(
-        private val keyboardService: KeyboardService
+        private val keyboardService: KeyboardService,
+        private val navigationService: NavigationService
 ) : BaseObservable() {
 
     private var _loadingResults = false
@@ -76,5 +78,9 @@ class MainViewModel(
         results = listOf()
         loadingResults = false
         keyboardService.showKeyboard()
+    }
+
+    fun goToSearchResultDetail(searchResult: SearchResult) {
+        navigationService.navigateToSearchResultDetail(searchResult)
     }
 }

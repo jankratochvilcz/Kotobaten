@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.databinding.ActivityMainBinding
+import com.kratochvil.kotobaten.view.activity.view.services.PageNavigationService
 import com.kratochvil.kotobaten.view.activity.view.services.VirtualKeyboardService
 import com.kratochvil.kotobaten.viewmodel.MainViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultAdapter
@@ -26,7 +27,11 @@ class MainActivity : AppCompatActivity() {
                     inputMethodManager.toggleSoftInputFromWindow(
                             container.applicationWindowToken,
                             InputMethodManager.SHOW_FORCED, 0)
-                })
+                }),
+            PageNavigationService(
+                { this },
+                { startActivity(it) }
+            )
     )
 
     /*private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -72,6 +77,10 @@ class MainActivity : AppCompatActivity() {
             viewModel.search()
             true
         })
+
+        search_results_list_view.setOnItemClickListener { parent, view, position, id ->
+            viewModel.goToSearchResultDetail(viewModel.results[position])
+        }
     }
 
     private fun onViewModelPropertyChanged(propertyId: Int) {
