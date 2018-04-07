@@ -6,10 +6,6 @@ class SearchResult(
         val isCommon: Boolean,
         val japaneseWord: String,
         val japaneseReading: String,
-        val englishTranslations: List<String>)
-    : Serializable{
+        val definitions: List<SearchResultDefinition>)
+    : Serializable
 
-    var english: String = ""
-        get() = englishTranslations
-                .reduce({acc, curr -> "$acc; $curr"})
-}

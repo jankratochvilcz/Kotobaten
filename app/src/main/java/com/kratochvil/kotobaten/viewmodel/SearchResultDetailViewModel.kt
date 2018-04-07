@@ -6,10 +6,7 @@ import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.model.entity.SearchResult
 import com.kratochvil.kotobaten.model.service.NavigationService
 
-class SearchResultDetailViewModel(
-        private val navigationService: NavigationService
-)
-    :BaseObservable() {
+class SearchResultDetailViewModel() :BaseObservable() {
 
     private var _searchResult = SearchResult(false, "", "", listOf())
 

@@ -9,8 +9,8 @@ import android.view.inputmethod.InputMethodManager
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.databinding.ActivityMainBinding
-import com.kratochvil.kotobaten.view.activity.view.services.PageNavigationService
-import com.kratochvil.kotobaten.view.activity.view.services.VirtualKeyboardService
+import com.kratochvil.kotobaten.view.services.PageNavigationService
+import com.kratochvil.kotobaten.view.services.VirtualKeyboardService
 import com.kratochvil.kotobaten.viewmodel.MainViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultAdapter
 import kotlinx.android.synthetic.main.activity_main.*

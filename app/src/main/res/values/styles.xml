@@ -11,4 +11,24 @@
         <item name="android:textColorHint">@color/subtleGray</item>
     </style>
 
+    <style name="KanjiTextViewStyle">
+        <item name="android:textColor">@color/foreground_base</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="FuriganaTextViewStyle" parent="KanjiTextViewStyle" />
+
+    <style name="ListViewBaseStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+    <style name="TextViewBaseStyle">
+        <item name="android:textColor">@color/foreground_base</item>
+        <item name="android:textSize">@dimen/textSize_base</item>
+    </style>
+
 </resources>

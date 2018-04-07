@@ -1,6 +1,7 @@
 package com.kratochvil.kotobaten.model.service
 
 import com.kratochvil.kotobaten.model.entity.SearchResult
+import com.kratochvil.kotobaten.model.entity.SearchResultDefinition
 import org.json.JSONObject
 import java.io.BufferedInputStream
 import java.io.BufferedReader
@@ -35,21 +36,27 @@ class JishoApiService {
                 try {
                     val responseObject = responsesArray.getJSONObject(i)
 
-                    val japaneseObject = responseObject.getJSONArray("japanese").getJSONObject(0)
+                    val japaneseObject = responseObject
+                            .getJSONArray("japanese")
+                            .getJSONObject(0)
 
                     val englishDefinitionsArray = responseObject
-                            .getJSONArray("senses").getJSONObject(0)
-                            .getJSONArray("english_definitions")
+                            .getJSONArray("senses")
 
-                    val englishDefinitions = ArrayList<String>()
-                    for(i in 0..(englishDefinitionsArray.length() - 1))
-                        englishDefinitions.add(englishDefinitionsArray.getString(i))
+                    val searchResultDefinitions = ArrayList<SearchResultDefinition>()
+                    for(i in 0..(englishDefinitionsArray.length() - 1)) {
+                        val searchResultDefinition = getSearchResultDefinition(
+                                englishDefinitionsArray.getJSONObject(i))
+
+                        if(searchResultDefinition.getPartsOfSpeechAsString() != "Wikipedia definition")
+                            searchResultDefinitions.add(searchResultDefinition)
+                    }
 
                     val result = SearchResult(
                             responseObject.getBoolean("is_common"),
                             japaneseObject.getString("word"),
                             japaneseObject.getString("reading"),
-                            englishDefinitions)
+                            searchResultDefinitions)
 
                     results.add(result)
                 }
@@ -57,7 +64,7 @@ class JishoApiService {
             }
 
             return results
-                    .filter { it.englishTranslations.any() }
+                    .filter { it.definitions.any() }
         }
         catch (ex: Exception) {
             print(ex)
@@ -67,5 +74,43 @@ class JishoApiService {
         }
 
         return listOf()
+    }
+
+    private fun getSearchResultDefinition(jsonSearchResultDefinition: JSONObject): SearchResultDefinition {
+        val englishDefinitions = getArrayOfStringsFromProperty(
+                jsonSearchResultDefinition,
+                "english_definitions")
+
+        val partsOfSpeech = getArrayOfStringsFromProperty(
+                jsonSearchResultDefinition,
+                "parts_of_speech")
+
+        val info = getArrayOfStringsFromProperty(
+                jsonSearchResultDefinition,
+                "info")
+
+        val tags = getArrayOfStringsFromProperty(
+                jsonSearchResultDefinition,
+                "tags")
+
+        return SearchResultDefinition(
+                englishDefinitions,
+                partsOfSpeech,
+                tags,
+                info)
+    }
+
+    private fun getArrayOfStringsFromProperty(
+            jsonObject: JSONObject,
+            propertyName: String): List<String> {
+
+        val array = jsonObject.getJSONArray(propertyName)
+
+        val result = ArrayList<String>()
+
+        for(i in 0..(array.length() - 1))
+            result.add(array.getString(i))
+
+        return result
     }
 }
