@@ -14,12 +14,12 @@ import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.databinding.FragmentSearchBinding
 import com.kratochvil.kotobaten.view.services.PageNavigationService
 import com.kratochvil.kotobaten.view.services.VirtualKeyboardService
-import com.kratochvil.kotobaten.viewmodel.MainViewModel
+import com.kratochvil.kotobaten.viewmodel.SearchViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultAdapter
 import kotlinx.android.synthetic.main.fragment_search.*
 
 class SearchFragment: Fragment() {
-    private val viewModel = MainViewModel(
+    private val viewModel = SearchViewModel(
             VirtualKeyboardService(
                     { activity.currentFocus },
                     { activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager },

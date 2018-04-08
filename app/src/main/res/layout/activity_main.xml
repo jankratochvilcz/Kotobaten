@@ -18,6 +18,7 @@
             android:layout_height="match_parent">
             <fragment
                 android:id="@+id/search_fragment"
+                android:tag="searchFragment"
                 class="com.kratochvil.kotobaten.view.fragment.SearchFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -29,9 +30,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            app:itemIconTint="@color/darkGray"
-            app:itemTextColor="@color/darkGray"
+            app:itemIconTint="@drawable/drawer_list_foreground_selector"
+            app:itemTextColor="@drawable/drawer_list_foreground_selector"
             app:menu="@menu/drawer_main"
+            app:itemBackground="@android:color/transparent"
             app:headerLayout="@layout/main_drawer_header"/>
 
     </android.support.v4.widget.DrawerLayout>

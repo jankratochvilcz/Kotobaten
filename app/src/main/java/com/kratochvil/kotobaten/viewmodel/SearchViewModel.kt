@@ -8,7 +8,7 @@ import com.kratochvil.kotobaten.model.service.KeyboardService
 import com.kratochvil.kotobaten.model.service.NavigationService
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchTask
 
-class MainViewModel(
+class SearchViewModel(
         private val keyboardService: KeyboardService,
         private val navigationService: NavigationService
 ) : BaseObservable() {
