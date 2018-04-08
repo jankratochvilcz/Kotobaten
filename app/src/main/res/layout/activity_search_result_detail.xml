@@ -31,6 +31,33 @@
             android:textSize="@dimen/textSize_extraExtraLarge"
             app:layout_constraintTop_toBottomOf="@id/activity_search_result_detail_japanese_reading"/>
 
+        <LinearLayout
+            android:id="@+id/activity_search_result_history_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/activity_search_result_detail_japanese_word"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="12dp">
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/activity_search_result_history_count"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                app:cpb_progressbar_color="@color/colorPrimary"
+                app:cpb_progressbar_width="2dp"
+                app:cpb_background_progressbar_color="@color/subtleGray"
+                app:cpb_background_progressbar_width="2dp"
+                android:visibility="@{viewModel.isFrequent ? View.GONE : View.VISIBLE}"/>
+
+            <ImageView
+                android:id="@+id/activity_search_result_history_isFrequent"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_stars_black_24dp"
+                android:visibility="@{viewModel.isFrequent ? View.VISIBLE : View.GONE}"/>
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/activity_search_result_detail_common_word"
             android:layout_width="wrap_content"
@@ -41,8 +68,10 @@
             android:textSize="@dimen/textSize_small"
             android:paddingVertical="2dp"
             android:paddingHorizontal="8dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/activity_search_result_detail_japanese_word"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintTop_toTopOf="@id/activity_search_result_history_layout"
+            app:layout_constraintBottom_toBottomOf="@id/activity_search_result_history_layout"
+            app:layout_constraintLeft_toRightOf="@id/activity_search_result_history_layout"
             android:visibility="@{viewModel.searchResult.isCommon ? View.VISIBLE : View.GONE}"/>
 
         <ListView

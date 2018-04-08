@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'realm-android'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -31,6 +33,10 @@ kapt {
     generateStubs = true
 }
 
+realm {
+    syncEnabled = true;
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -41,4 +47,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     kapt "com.android.databinding:compiler:$gradle_version"
+    implementation 'com.mikhaellopez:circularprogressbar:1.1.1'
 }

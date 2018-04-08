@@ -23,7 +23,7 @@ class SearchResultAdapter(context: Context, list: List<SearchResult>)
         kanaTextView.text = searchResult.japaneseReading
         englishTextView.text = searchResult.definitions
                 .first()
-                .getEnglishDefinitionsAsString()
+                ?.getEnglishDefinitionsAsString()
 
         return view
     }

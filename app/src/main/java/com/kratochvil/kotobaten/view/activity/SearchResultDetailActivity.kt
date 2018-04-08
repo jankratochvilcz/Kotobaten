@@ -8,6 +8,7 @@ import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.R
 
 import com.kratochvil.kotobaten.databinding.ActivitySearchResultDetailBinding
+import com.kratochvil.kotobaten.model.service.realm.RealmSearchResultsRepository
 import com.kratochvil.kotobaten.view.services.PageNavigationService
 import com.kratochvil.kotobaten.viewmodel.SearchResultDetailViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultDetailAdapter
@@ -20,7 +21,9 @@ class SearchResultDetailActivity : AppCompatActivity() {
             { startActivity(it) }
     )
 
-    private val viewModel = SearchResultDetailViewModel()
+    private val viewModel = SearchResultDetailViewModel(
+            RealmSearchResultsRepository()
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +42,14 @@ class SearchResultDetailActivity : AppCompatActivity() {
 
             binding.viewModel = viewModel
 
-            viewModel.searchResult = navigationService.getSearchResultFromBundle(intent.extras)
+            viewModel.initialize(navigationService.getSearchResultFromBundle(intent.extras))
         } else finish()
     }
 
     private fun onViewModelPropertyChanged(propertyId: Int) {
         if(propertyId == BR.searchResult)
             activity_search_result_detail_english_meanings.adapter = SearchResultDetailAdapter(this, viewModel.searchResult.definitions)
+        else if(propertyId == BR.historyPercentage)
+            activity_search_result_history_count.setProgressWithAnimation(viewModel.historyPercentage.toFloat())
     }
 }

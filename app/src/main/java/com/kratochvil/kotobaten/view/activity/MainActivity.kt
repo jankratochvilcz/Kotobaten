@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             true
         })
 
-        search_results_list_view.setOnItemClickListener { parent, view, position, id ->
+        search_results_list_view.setOnItemClickListener { _, _, position, _ ->
             viewModel.goToSearchResultDetail(viewModel.results[position])
         }
     }

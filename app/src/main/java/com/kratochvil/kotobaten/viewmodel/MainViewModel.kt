@@ -63,11 +63,10 @@ class MainViewModel(
 
         loadingResults = true
 
-        val searchTask = SearchTask()
-        searchTask.callback = {
+        val searchTask = SearchTask({
             results = it
             loadingResults = false
-        }
+        })
         searchTask.execute(searchTerm)
 
         keyboardService.hideKeyboard()

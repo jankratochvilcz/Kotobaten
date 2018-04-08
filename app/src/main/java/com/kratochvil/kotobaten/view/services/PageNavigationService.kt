@@ -15,17 +15,16 @@ class PageNavigationService(
     private val defaultBundleKey = "value"
 
     override fun navigateToSearchResultDetail(data: SearchResult) {
-        var bundle = Bundle()
-        bundle.putSerializable(defaultBundleKey, data)
+        val bundle = Bundle()
+        bundle.putParcelable(defaultBundleKey, data)
 
-        var intent = Intent(contextFunc(), SearchResultDetailActivity::class.java)
+        val intent = Intent(contextFunc(), SearchResultDetailActivity::class.java)
         intent.putExtras(bundle)
 
         startActivityFunc(intent)
     }
 
     override fun getSearchResultFromBundle(bundle: Bundle): SearchResult {
-        val serializable = bundle.getSerializable(defaultBundleKey)
-        return serializable as SearchResult
+        return bundle.getParcelable(defaultBundleKey)
     }
 }
