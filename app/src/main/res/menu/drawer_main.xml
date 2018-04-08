@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_main_search"
+            android:icon="@drawable/ic_search_accented_24dp"
+            android:title="Search" />
+        <item
+            android:id="@+id/drawer_main_history"
+            android:icon="@drawable/ic_history_accented_24dp"
+            android:title="History" />
+    </group>
+</menu>
