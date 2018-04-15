@@ -12,6 +12,10 @@ abstract class SimpleAdapterBase<T: Any>(
     var inflater: LayoutInflater = context
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
+    fun getItemTyped(position: Int): T {
+        return items[position]
+    }
+
     override fun getItem(position: Int): Any {
         return items[position]
     }

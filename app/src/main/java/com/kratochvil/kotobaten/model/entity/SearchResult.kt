@@ -5,6 +5,7 @@ import android.os.Parcelable
 import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
+import java.util.*
 
 open class SearchResult() : RealmObject(), Parcelable {
     @PrimaryKey var id: Long = 0
@@ -16,6 +17,7 @@ open class SearchResult() : RealmObject(), Parcelable {
 
     var isFavorited: Boolean = false
     var visitsCount: Int = 0
+    var lastVisited = Calendar.getInstance().time
 
     //<editor-fold desc="Parcelable Implementation">
 
@@ -24,6 +26,7 @@ open class SearchResult() : RealmObject(), Parcelable {
         japaneseWord = parcel.readString()
         japaneseReading = parcel.readString()
         parcel.readTypedList(definitions, SearchResultDefinition.CREATOR)
+        lastVisited = Date(parcel.readLong())
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -31,6 +34,7 @@ open class SearchResult() : RealmObject(), Parcelable {
         parcel.writeString(japaneseWord)
         parcel.writeString(japaneseReading)
         parcel.writeTypedList(definitions)
+        parcel.writeLong(lastVisited.time)
     }
 
     override fun describeContents(): Int {
@@ -38,6 +42,8 @@ open class SearchResult() : RealmObject(), Parcelable {
     }
 
     companion object CREATOR : Parcelable.Creator<SearchResult> {
+        val AUTOFAVORITE_THRESHOLD = 3
+
         override fun createFromParcel(parcel: Parcel): SearchResult {
             return SearchResult(parcel)
         }

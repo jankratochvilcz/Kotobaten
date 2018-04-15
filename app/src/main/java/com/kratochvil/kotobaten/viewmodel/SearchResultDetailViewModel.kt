@@ -37,6 +37,6 @@ class SearchResultDetailViewModel(
         val updatedSearchResult = searchResultsRepository.onSearchResultVisited(searchResult)
 
         this.searchResult = updatedSearchResult
-        this.historyPercentage = updatedSearchResult.visitsCount * 100 / 3
+        this.historyPercentage = updatedSearchResult.visitsCount * 100 / SearchResult.AUTOFAVORITE_THRESHOLD
     }
 }

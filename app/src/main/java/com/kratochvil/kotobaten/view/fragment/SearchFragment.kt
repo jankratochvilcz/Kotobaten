@@ -3,7 +3,6 @@ package com.kratochvil.kotobaten.view.fragment
 import android.app.Fragment
 import android.content.Context
 import android.databinding.DataBindingUtil
-import android.databinding.Observable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +11,12 @@ import android.view.inputmethod.InputMethodManager
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.databinding.FragmentSearchBinding
+import com.kratochvil.kotobaten.model.entity.SearchResult
 import com.kratochvil.kotobaten.view.services.PageNavigationService
 import com.kratochvil.kotobaten.view.services.VirtualKeyboardService
 import com.kratochvil.kotobaten.viewmodel.SearchViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultAdapter
+import com.kratochvil.kotobaten.viewmodel.infrastructure.SimpleAdapterUpdater
 import kotlinx.android.synthetic.main.fragment_search.*
 
 class SearchFragment: Fragment() {
@@ -29,6 +30,8 @@ class SearchFragment: Fragment() {
             )
     )
 
+    private var resultsAdapterUpdater: SimpleAdapterUpdater<SearchResult, SearchViewModel>? = null
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         initializeViewModelServices()
 
@@ -38,11 +41,6 @@ class SearchFragment: Fragment() {
                 container,
                 false)
 
-        viewModel.addOnPropertyChangedCallback(object: Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                onViewModelPropertyChanged(propertyId)
-            }
-        })
 
         binding.viewModel = viewModel
 
@@ -50,12 +48,13 @@ class SearchFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        registerUiListeners()
-    }
+        resultsAdapterUpdater = SimpleAdapterUpdater(
+                viewModel,
+                BR.results,
+                search_results_list_view,
+                { SearchResultAdapter(context, it.results, false) })
 
-    private fun onViewModelPropertyChanged(propertyId: Int) {
-        if(propertyId == BR.results)
-            search_results_list_view.adapter = SearchResultAdapter(activity, viewModel.results)
+        registerUiListeners()
     }
 
     private fun registerUiListeners() {

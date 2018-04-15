@@ -6,8 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.model.entity.SearchResult
+import android.text.format.DateFormat
+import java.util.*
 
-class SearchResultAdapter(context: Context, list: List<SearchResult>)
+class SearchResultAdapter(
+        context: Context,
+        list: List<SearchResult>,
+        private val groupByDate: Boolean)
     : SimpleAdapterBase<SearchResult>(context, list) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -25,6 +30,42 @@ class SearchResultAdapter(context: Context, list: List<SearchResult>)
                 .first()
                 ?.getEnglishDefinitionsAsString()
 
+        if(!groupByDate)
+            return view
+
+        if(parent == null)
+            throw IllegalArgumentException()
+
+        if(position == 0) {
+            renderGroupHeader(view, parent, position)
+            return view
+        }
+
+        val currentDateWithoutTime = getDateWithoutTime(getItemTyped(position).lastVisited)
+        val previousDateWithoutTime = getDateWithoutTime(getItemTyped(position - 1).lastVisited)
+        if(currentDateWithoutTime < previousDateWithoutTime)
+            renderGroupHeader(view, parent, position)
+
         return view
+    }
+
+    private fun renderGroupHeader(view: View, parent: ViewGroup, position: Int) {
+        val groupHeaderTextView = view.findViewById<TextView>(R.id.search_result_group_title)
+
+        groupHeaderTextView.visibility = View.VISIBLE
+
+        val lastVisited = getItemTyped(position).lastVisited
+        groupHeaderTextView.text = DateFormat.getDateFormat(parent.context).format(lastVisited)
+    }
+
+    private fun getDateWithoutTime(date:Date): Date {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+
+        return calendar.time
     }
 }
