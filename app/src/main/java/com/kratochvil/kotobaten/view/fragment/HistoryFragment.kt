@@ -16,6 +16,7 @@ import com.kratochvil.kotobaten.viewmodel.HistoryViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultAdapter
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SimpleAdapterUpdater
 import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.fragment_search.*
 
 class HistoryFragment: Fragment() {
     private val viewModel = HistoryViewModel(
@@ -46,6 +47,10 @@ class HistoryFragment: Fragment() {
                 BR.results,
                 history_results_list_view,
                 { SearchResultAdapter(context, it.results, true) })
+
+        history_results_list_view.setOnItemClickListener { _, _, position, _ ->
+            viewModel.goToSearchResultDetail(viewModel.results[position])
+        }
 
         viewModel.initialize()
     }
