@@ -4,10 +4,12 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.model.entity.SearchResult
+import com.kratochvil.kotobaten.model.service.NavigationService
 import com.kratochvil.kotobaten.model.service.SearchResultsRepository
 
 class SearchResultDetailViewModel(
-        private val searchResultsRepository: SearchResultsRepository
+        private val searchResultsRepository: SearchResultsRepository,
+        private val navigationService: NavigationService
 ) : BaseObservable() {
 
     private var _searchResult = SearchResult()
@@ -38,5 +40,9 @@ class SearchResultDetailViewModel(
 
         this.searchResult = updatedSearchResult
         this.historyPercentage = updatedSearchResult.visitsCount * 100 / SearchResult.AUTOFAVORITE_THRESHOLD
+    }
+
+    fun goBack() {
+        navigationService.goBack()
     }
 }

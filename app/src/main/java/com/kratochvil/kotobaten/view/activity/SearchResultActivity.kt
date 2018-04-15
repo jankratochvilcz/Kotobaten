@@ -6,23 +6,26 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.R
+import com.kratochvil.kotobaten.databinding.ActivitySearchResultBinding
 
-import com.kratochvil.kotobaten.databinding.ActivitySearchResultDetailBinding
 import com.kratochvil.kotobaten.model.service.realm.RealmSearchResultsRepository
 import com.kratochvil.kotobaten.view.services.PageNavigationService
 import com.kratochvil.kotobaten.viewmodel.SearchResultDetailViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultDetailAdapter
-import kotlinx.android.synthetic.main.activity_search_result_detail.*
+import kotlinx.android.synthetic.main.activity_search_result.*
 
-class SearchResultDetailActivity : AppCompatActivity() {
+class SearchResultActivity : AppCompatActivity() {
 
-    val navigationService = PageNavigationService(
+    private val navigationService = PageNavigationService(
             { this },
-            { startActivity(it) }
+            { startActivity(it) },
+            { finish() },
+            { this }
     )
 
     private val viewModel = SearchResultDetailViewModel(
-            RealmSearchResultsRepository()
+            RealmSearchResultsRepository(),
+            navigationService
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,13 +39,14 @@ class SearchResultDetailActivity : AppCompatActivity() {
             })
 
 
-            val binding = DataBindingUtil.setContentView<ActivitySearchResultDetailBinding>(
+            val binding = DataBindingUtil.setContentView<ActivitySearchResultBinding>(
                     this,
-                    R.layout.activity_search_result_detail)
+                    R.layout.activity_search_result)
 
             binding.viewModel = viewModel
 
             viewModel.initialize(navigationService.getSearchResultFromBundle(intent.extras))
+
         } else finish()
     }
 

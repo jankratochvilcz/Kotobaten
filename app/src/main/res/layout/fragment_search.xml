@@ -20,7 +20,8 @@
 
         <Button
             android:id="@+id/search_result_navigation_button"
-            style="@style/NavigationButtonStyle"/>
+            style="@style/NavigationButtonStyle"
+            android:onClick="@{() -> viewModel.openNavigation()}"/>
 
         <ImageView
             android:id="@+id/search_find_icon"

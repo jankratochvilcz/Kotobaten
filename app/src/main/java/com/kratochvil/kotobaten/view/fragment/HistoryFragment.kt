@@ -22,7 +22,9 @@ class HistoryFragment: Fragment() {
             RealmSearchResultsRepository(),
             PageNavigationService(
                     { activity },
-                    { startActivity(it) }))
+                    { startActivity(it) },
+                    { throw IllegalArgumentException() },
+                    { activity }))
 
     private var resultsAdapterUpdater: SimpleAdapterUpdater<SearchResult, HistoryViewModel>? = null
 

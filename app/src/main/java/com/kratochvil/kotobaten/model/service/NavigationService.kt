@@ -7,4 +7,8 @@ interface NavigationService {
     fun navigateToSearchResultDetail(data: SearchResult)
 
     fun getSearchResultFromBundle(bundle: Bundle): SearchResult
+
+    fun openNavigationDrawer()
+
+    fun goBack()
 }

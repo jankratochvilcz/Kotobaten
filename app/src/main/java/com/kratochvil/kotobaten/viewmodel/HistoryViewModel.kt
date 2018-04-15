@@ -40,4 +40,8 @@ class HistoryViewModel(
     fun initialize() {
         allResults = searchResultsRepository.getVisitedSearchResults()
     }
+
+    fun openNavigation() {
+        navigationService.openNavigationDrawer()
+    }
 }

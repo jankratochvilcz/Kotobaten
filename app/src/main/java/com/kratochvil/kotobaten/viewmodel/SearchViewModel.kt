@@ -82,4 +82,8 @@ class SearchViewModel(
     fun goToSearchResultDetail(searchResult: SearchResult) {
         navigationService.navigateToSearchResultDetail(searchResult)
     }
+
+    fun openNavigation() {
+        navigationService.openNavigationDrawer()
+    }
 }

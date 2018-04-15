@@ -16,7 +16,8 @@
 
         <Button
             android:id="@+id/history_navigation_button"
-            style="@style/NavigationButtonStyle"/>
+            style="@style/NavigationButtonStyle"
+            android:onClick="@{() -> viewModel.openNavigation()}"/>
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/history_all_or_favorites_switch"

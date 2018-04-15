@@ -26,8 +26,9 @@ class SearchFragment: Fragment() {
             virtualKeyboardService,
             PageNavigationService(
                     { activity },
-                    { startActivity(it) }
-            )
+                    { startActivity(it) },
+                    { throw IllegalArgumentException() },
+                    { activity })
     )
 
     private var resultsAdapterUpdater: SimpleAdapterUpdater<SearchResult, SearchViewModel>? = null
