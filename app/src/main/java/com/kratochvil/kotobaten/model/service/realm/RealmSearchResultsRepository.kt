@@ -33,14 +33,7 @@ class RealmSearchResultsRepository: SearchResultsRepository {
                     definition.id = searchResultDefinitionPreviousMaxId
                 }
 
-
                 searchResult.visitsCount = 1
-
-                val date = Calendar.getInstance()
-                date.time = searchResult.lastVisited
-                date.add(Calendar.DAY_OF_MONTH, -1)
-
-                searchResult.lastVisited = date.time
                 transaction.copyToRealm(searchResult)
             }
 

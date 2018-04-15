@@ -1,12 +1,15 @@
 package com.kratochvil.kotobaten.viewmodel.infrastructure
 
 import android.content.Context
+import android.content.res.Resources
+import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.model.entity.SearchResult
 import android.text.format.DateFormat
+import android.util.TypedValue
 import java.util.*
 
 class SearchResultAdapter(
@@ -38,6 +41,8 @@ class SearchResultAdapter(
 
         if(position == 0) {
             renderGroupHeader(view, parent, position)
+            resetGroupHeaderMargin(view)
+
             return view
         }
 
@@ -49,16 +54,24 @@ class SearchResultAdapter(
         return view
     }
 
+    private fun resetGroupHeaderMargin(view: View) {
+        val groupHeaderTextView = view.findViewById<TextView>(R.id.search_result_group_title)
+        val params = ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT)
+
+        params.setMargins(0, 0, 0, 0)
+        groupHeaderTextView.layoutParams = params
+    }
+
     private fun renderGroupHeader(view: View, parent: ViewGroup, position: Int) {
         val groupHeaderTextView = view.findViewById<TextView>(R.id.search_result_group_title)
 
         groupHeaderTextView.visibility = View.VISIBLE
-
-        val lastVisited = getItemTyped(position).lastVisited
-        groupHeaderTextView.text = DateFormat.getDateFormat(parent.context).format(lastVisited)
+        groupHeaderTextView.text = getDateString(getItemTyped(position).lastVisited, parent)
     }
 
-    private fun getDateWithoutTime(date:Date): Date {
+    private fun getDateWithoutTime(date: Date): Date {
         val calendar = Calendar.getInstance()
         calendar.time = date
         calendar.set(Calendar.HOUR_OF_DAY, 0)
@@ -67,5 +80,22 @@ class SearchResultAdapter(
         calendar.set(Calendar.MILLISECOND, 0)
 
         return calendar.time
+    }
+
+    private fun getDateString(date: Date, parent: ViewGroup): String {
+        val today = Calendar.getInstance()
+
+        val dateAsCalendar = Calendar.getInstance()
+        dateAsCalendar.time = date
+
+        val daysDifference = (today.timeInMillis /(24*60*60*1000)) - (dateAsCalendar.timeInMillis /(24*60*60*1000))
+
+        return when (daysDifference.toInt()) {
+            0 -> "Today"
+            1 -> "Yesterday"
+            in 2..7 -> dateAsCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())
+            else -> DateFormat.getDateFormat(parent.context).format(date)
+        }
+
     }
 }

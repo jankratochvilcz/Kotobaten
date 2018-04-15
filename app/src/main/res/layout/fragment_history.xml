@@ -12,7 +12,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/activity_margin">
+        android:padding="@dimen/activity_margin">
 
         <Button
             android:id="@+id/history_navigation_button"
@@ -29,7 +29,7 @@
             android:checked="@={viewModel.showOnlyFavoriteResults}"/>
 
         <TextView
-            android:id="@+id/histor_all_or_favorites_label"
+            android:id="@+id/history_all_or_favorites_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Favorites only"
@@ -41,8 +41,9 @@
         <ListView
             android:id="@+id/history_results_list_view"
             style="@style/ListViewBaseStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/history_navigation_button"/>
+            android:layout_marginTop="@dimen/element_margin_large"
+            app:layout_constraintTop_toBottomOf="@id/history_all_or_favorites_switch"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_chainStyle="spread"/>
     </android.support.constraint.ConstraintLayout>
 </layout>
