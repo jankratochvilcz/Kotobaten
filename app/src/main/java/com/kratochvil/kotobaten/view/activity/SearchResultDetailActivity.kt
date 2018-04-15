@@ -48,8 +48,8 @@ class SearchResultDetailActivity : AppCompatActivity() {
 
     private fun onViewModelPropertyChanged(propertyId: Int) {
         if(propertyId == BR.searchResult)
-            activity_search_result_detail_english_meanings.adapter = SearchResultDetailAdapter(this, viewModel.searchResult.definitions)
+            search_result_english_meanings.adapter = SearchResultDetailAdapter(this, viewModel.searchResult.definitions)
         else if(propertyId == BR.historyPercentage)
-            activity_search_result_history_count.setProgressWithAnimation(viewModel.historyPercentage.toFloat())
+            search_result_autofavorite_progress.setProgressWithAnimation(viewModel.historyPercentage.toFloat())
     }
 }

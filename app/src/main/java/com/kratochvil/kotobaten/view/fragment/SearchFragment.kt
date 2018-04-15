@@ -51,19 +51,19 @@ class SearchFragment: Fragment() {
         resultsAdapterUpdater = SimpleAdapterUpdater(
                 viewModel,
                 BR.results,
-                search_results_list_view,
+                search_results_list,
                 { SearchResultAdapter(context, it.results, false) })
 
         registerUiListeners()
     }
 
     private fun registerUiListeners() {
-        main_search_edit_text.setOnEditorActionListener({ _, _, _ ->
+        search_search_field.setOnEditorActionListener({ _, _, _ ->
             viewModel.search()
             true
         })
 
-        search_results_list_view.setOnItemClickListener { _, _, position, _ ->
+        search_results_list.setOnItemClickListener { _, _, position, _ ->
             viewModel.goToSearchResultDetail(viewModel.results[position])
         }
     }
@@ -73,10 +73,10 @@ class SearchFragment: Fragment() {
                 { activity.currentFocus },
                 { activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager },
                 {
-                    main_search_edit_text.requestFocus()
+                    search_search_field.requestFocus()
                     val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     inputMethodManager.toggleSoftInputFromWindow(
-                            main_search_edit_text.applicationWindowToken,
+                            search_search_field.applicationWindowToken,
                             InputMethodManager.SHOW_FORCED, 0)
                 }
         )

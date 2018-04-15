@@ -30,4 +30,11 @@
         <item name="android:textSize">@dimen/textSize_base</item>
     </style>
 
+    <style name="NavigationButtonStyle">
+        <item name="android:layout_width">@dimen/element_margin_large</item>
+        <item name="android:layout_height">@dimen/element_margin_large</item>
+        <item name="android:padding">@dimen/element_margin_large</item>
+        <item name="android:background">@drawable/ic_menu_black_24dp</item>
+    </style>
+
 </resources>
