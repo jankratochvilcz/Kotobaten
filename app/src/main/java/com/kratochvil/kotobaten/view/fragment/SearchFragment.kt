@@ -19,17 +19,10 @@ import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultAdapter
 import kotlinx.android.synthetic.main.fragment_search.*
 
 class SearchFragment: Fragment() {
+    private val virtualKeyboardService = VirtualKeyboardService()
+
     private val viewModel = SearchViewModel(
-            VirtualKeyboardService(
-                    { activity.currentFocus },
-                    { activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager },
-                    {
-                        main_search_edit_text.requestFocus()
-                        val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        inputMethodManager.toggleSoftInputFromWindow(
-                                container.applicationWindowToken,
-                                InputMethodManager.SHOW_FORCED, 0)
-                    }),
+            virtualKeyboardService,
             PageNavigationService(
                     { activity },
                     { startActivity(it) }
@@ -37,6 +30,8 @@ class SearchFragment: Fragment() {
     )
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        initializeViewModelServices()
+
         val binding = DataBindingUtil.inflate<FragmentSearchBinding>(
                 inflater ?: throw IllegalArgumentException(),
                 R.layout.fragment_search,
@@ -72,5 +67,19 @@ class SearchFragment: Fragment() {
         search_results_list_view.setOnItemClickListener { _, _, position, _ ->
             viewModel.goToSearchResultDetail(viewModel.results[position])
         }
+    }
+
+    private fun initializeViewModelServices() {
+        virtualKeyboardService.initialize(
+                { activity.currentFocus },
+                { activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager },
+                {
+                    main_search_edit_text.requestFocus()
+                    val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.toggleSoftInputFromWindow(
+                            main_search_edit_text.applicationWindowToken,
+                            InputMethodManager.SHOW_FORCED, 0)
+                }
+        )
     }
 }

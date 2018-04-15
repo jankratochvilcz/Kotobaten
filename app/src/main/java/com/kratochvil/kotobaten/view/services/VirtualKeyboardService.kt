@@ -4,11 +4,22 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.kratochvil.kotobaten.model.service.KeyboardService
 
-class VirtualKeyboardService(
-        private val viewFactory: () -> View?,
-        private val inputMethodManagerFactory: () -> InputMethodManager?,
-        private val showKeyboardFunc: () -> Unit)
+class VirtualKeyboardService
     : KeyboardService {
+
+    private var viewFactory: () -> View? = { null }
+    private var inputMethodManagerFactory: () -> InputMethodManager? = { null }
+    private var showKeyboardFunc: () -> Unit = { }
+
+    fun initialize(
+            viewFactory: () -> View?,
+            inputMethodManagerFactory: () -> InputMethodManager?,
+            showKeyboardFunc: () -> Unit) {
+        this.viewFactory = viewFactory
+        this.inputMethodManagerFactory = inputMethodManagerFactory
+        this.showKeyboardFunc = showKeyboardFunc
+    }
+
     override fun showKeyboard() {
         showKeyboardFunc()
     }
