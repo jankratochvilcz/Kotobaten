@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.kratochvil.kotobaten.viewmodel.SearchResultDetailViewModel" />
+
+        <import type="android.view.View"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_margin">
+
+        <Button
+            android:id="@+id/search_result_navigation_button"
+            style="@style/NavigationButtonStyle"
+            android:background="@drawable/ic_arrow_back_black_24dp"
+            android:onClick="@{() -> viewModel.goBack()}"/>
+
+        <LinearLayout
+            android:id="@+id/search_result_favorited_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/search_result_navigation_button"
+            app:layout_constraintBottom_toBottomOf="@id/search_result_navigation_button"
+            android:layout_marginTop="@dimen/element_margin_base">
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/search_result_autofavorite_progress"
+                android:layout_width="@dimen/element_margin_large"
+                android:layout_height="@dimen/element_margin_large"
+                app:cpb_progressbar_color="@color/colorPrimary"
+                app:cpb_progressbar_width="2dp"
+                app:cpb_background_progressbar_color="@color/subtleGray"
+                app:cpb_background_progressbar_width="2dp"
+                android:visibility="@{viewModel.isFrequent ? View.GONE : View.VISIBLE}"/>
+
+            <ImageView
+                android:id="@+id/search_result_is_favorited"
+                android:layout_width="@dimen/element_margin_large"
+                android:layout_height="@dimen/element_margin_large"
+                android:src="@drawable/ic_stars_black_24dp"
+                android:visibility="@{viewModel.isFrequent ? View.VISIBLE : View.GONE}"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/search_result_furigana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FuriganaTextViewStyle"
+            android:layout_marginStart="@dimen/element_margin_large"
+            android:text="@{viewModel.searchResult.japaneseReading}"
+            android:textSize="@dimen/textSize_base"
+            android:layout_marginTop="@dimen/element_margin_extra_large"
+            app:layout_constraintTop_toBottomOf="@id/search_result_navigation_button"
+            app:layout_constraintLeft_toRightOf="@id/search_result_navigation_button"/>
+
+        <TextView
+            android:id="@+id/search_result_kana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/KanjiTextViewStyle"
+            android:text="@{viewModel.searchResult.japaneseWord}"
+            android:textSize="@dimen/textSize_extraExtraLarge"
+            app:layout_constraintTop_toBottomOf="@id/search_result_furigana"
+            app:layout_constraintLeft_toLeftOf="@id/search_result_furigana"/>
+
+        <TextView
+            android:id="@+id/search_result_is_common"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="common word"
+            android:layout_marginTop="@dimen/element_margin_base"
+            android:textAllCaps="true"
+            android:textSize="@dimen/textSize_small"
+            app:layout_constraintTop_toBottomOf="@id/search_result_kana"
+            app:layout_constraintLeft_toLeftOf="@id/search_result_kana"
+            android:visibility="@{viewModel.searchResult.isCommon ? View.VISIBLE : View.GONE}"/>
+
+        <ListView
+            android:id="@+id/search_result_english_meanings"
+            style="@style/ListViewBaseStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/element_margin_extra_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_result_is_common"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
