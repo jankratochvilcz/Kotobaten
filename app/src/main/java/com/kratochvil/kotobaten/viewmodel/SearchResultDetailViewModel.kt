@@ -2,6 +2,7 @@ package com.kratochvil.kotobaten.viewmodel
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
+import android.os.Bundle
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.model.entity.SearchResult
 import com.kratochvil.kotobaten.model.service.NavigationService
@@ -33,8 +34,9 @@ class SearchResultDetailViewModel(
     var isFrequent: Boolean = false
         @Bindable get() = historyPercentage >= 100
 
-    fun initialize(searchResult: SearchResult) {
-        this.searchResult = searchResult
+    fun initialize(activationArgs: Bundle) {
+
+        this.searchResult = navigationService.getSearchResultFromBundle(activationArgs)
 
         val updatedSearchResult = searchResultsRepository.onSearchResultVisited(searchResult)
 

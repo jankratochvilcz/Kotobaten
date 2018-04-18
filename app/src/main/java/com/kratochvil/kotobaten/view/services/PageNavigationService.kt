@@ -14,11 +14,10 @@ import com.kratochvil.kotobaten.view.activity.SearchResultActivity
 class PageNavigationService(
         private val contextFunc: () -> Context,
         private val startActivityFunc: (intent: Intent) -> Unit,
-        private val finishActivity: () -> Unit,
         private val activityFunc: () -> Activity)
     : NavigationService {
     override fun goBack() {
-        finishActivity()
+        activityFunc().finish()
     }
 
     override fun openNavigationDrawer() {

@@ -7,26 +7,16 @@ import android.support.v7.app.AppCompatActivity
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.databinding.ActivitySearchResultBinding
-
-import com.kratochvil.kotobaten.model.service.realm.RealmSearchResultsRepository
-import com.kratochvil.kotobaten.view.services.PageNavigationService
+import com.kratochvil.kotobaten.model.service.injection.InjectionParams
 import com.kratochvil.kotobaten.viewmodel.SearchResultDetailViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultDetailAdapter
 import kotlinx.android.synthetic.main.activity_search_result.*
+import org.koin.android.ext.android.inject
 
 class SearchResultActivity : AppCompatActivity() {
-
-    private val navigationService = PageNavigationService(
-            { this },
-            { startActivity(it) },
-            { finish() },
-            { this }
-    )
-
-    private val viewModel = SearchResultDetailViewModel(
-            RealmSearchResultsRepository(),
-            navigationService
-    )
+    private val viewModel by inject<SearchResultDetailViewModel> { mapOf(
+            InjectionParams.GET_CURRENT_ACTIVITY_FUN to { this }
+    ) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +35,7 @@ class SearchResultActivity : AppCompatActivity() {
 
             binding.viewModel = viewModel
 
-            viewModel.initialize(navigationService.getSearchResultFromBundle(intent.extras))
+            viewModel.initialize(intent.extras)
 
         } else finish()
     }

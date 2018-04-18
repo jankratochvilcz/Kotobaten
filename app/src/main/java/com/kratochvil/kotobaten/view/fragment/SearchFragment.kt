@@ -12,29 +12,29 @@ import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.databinding.FragmentSearchBinding
 import com.kratochvil.kotobaten.model.entity.SearchResult
-import com.kratochvil.kotobaten.view.services.PageNavigationService
-import com.kratochvil.kotobaten.view.services.VirtualKeyboardService
+import com.kratochvil.kotobaten.model.service.injection.InjectionParams
 import com.kratochvil.kotobaten.viewmodel.SearchViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultAdapter
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SimpleAdapterUpdater
 import kotlinx.android.synthetic.main.fragment_search.*
+import org.koin.android.ext.android.inject
 
 class SearchFragment: Fragment() {
-    private val virtualKeyboardService = VirtualKeyboardService()
-
-    private val viewModel = SearchViewModel(
-            virtualKeyboardService,
-            PageNavigationService(
-                    { activity },
-                    { startActivity(it) },
-                    { throw IllegalArgumentException() },
-                    { activity })
-    )
+    private val viewModel by inject<SearchViewModel> { mapOf(
+            InjectionParams.GET_CURRENT_ACTIVITY_FUN to { activity },
+            InjectionParams.SHOW_KEYBOARD_FUN to {
+                this.search_search_field.requestFocus()
+                val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.toggleSoftInputFromWindow(
+                        this.search_search_field.applicationWindowToken,
+                        InputMethodManager.SHOW_FORCED, 0)
+            },
+            InjectionParams.FOCUSED_VIEW_FUN to { activity.currentFocus }
+    ) }
 
     private var resultsAdapterUpdater: SimpleAdapterUpdater<SearchResult, SearchViewModel>? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        initializeViewModelServices()
 
         val binding = DataBindingUtil.inflate<FragmentSearchBinding>(
                 inflater ?: throw IllegalArgumentException(),
@@ -67,19 +67,5 @@ class SearchFragment: Fragment() {
         search_results_list.setOnItemClickListener { _, _, position, _ ->
             viewModel.goToSearchResultDetail(viewModel.results[position])
         }
-    }
-
-    private fun initializeViewModelServices() {
-        virtualKeyboardService.initialize(
-                { activity.currentFocus },
-                { activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager },
-                {
-                    search_search_field.requestFocus()
-                    val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    inputMethodManager.toggleSoftInputFromWindow(
-                            search_search_field.applicationWindowToken,
-                            InputMethodManager.SHOW_FORCED, 0)
-                }
-        )
     }
 }

@@ -10,22 +10,17 @@ import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.databinding.FragmentHistoryBinding
 import com.kratochvil.kotobaten.model.entity.SearchResult
-import com.kratochvil.kotobaten.model.service.realm.RealmSearchResultsRepository
-import com.kratochvil.kotobaten.view.services.PageNavigationService
+import com.kratochvil.kotobaten.model.service.injection.InjectionParams
 import com.kratochvil.kotobaten.viewmodel.HistoryViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultAdapter
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SimpleAdapterUpdater
 import kotlinx.android.synthetic.main.fragment_history.*
-import kotlinx.android.synthetic.main.fragment_search.*
+import org.koin.android.ext.android.inject
 
 class HistoryFragment: Fragment() {
-    private val viewModel = HistoryViewModel(
-            RealmSearchResultsRepository(),
-            PageNavigationService(
-                    { activity },
-                    { startActivity(it) },
-                    { throw IllegalArgumentException() },
-                    { activity }))
+    private val viewModel by inject<HistoryViewModel> { mapOf(
+            InjectionParams.GET_CURRENT_ACTIVITY_FUN to { activity }
+    ) }
 
     private var resultsAdapterUpdater: SimpleAdapterUpdater<SearchResult, HistoryViewModel>? = null
 
