@@ -12,13 +12,17 @@ class VirtualKeyboardService(
     : KeyboardService {
 
     override fun showKeyboard() {
-        showKeyboardFunc()
+        try {
+            showKeyboardFunc()
+        } catch(ex: Exception) {}
     }
 
     override fun hideKeyboard() {
-        val inputMethodManager = inputMethodManagerFactory() ?: return
-        val view = viewFactory() ?: return
+        try {
+            val inputMethodManager = inputMethodManagerFactory() ?: return
+            val view = viewFactory() ?: return
 
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        } catch(ex: Exception) {}
     }
 }

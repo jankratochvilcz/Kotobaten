@@ -16,6 +16,14 @@ class MainActivity : AppCompatActivity() {
     private val searchFragmentTag = "searchFragment"
     private val historyFragmentTag = "historyFragment"
 
+    private val searchFragment: SearchFragment by lazy {
+        SearchFragment()
+    }
+
+    private val historyFragment: HistoryFragment by lazy {
+        HistoryFragment()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -24,6 +32,8 @@ class MainActivity : AppCompatActivity() {
                 R.layout.activity_main)
 
         registerUiListeners()
+
+        navigateToFragment(searchFragmentTag)
     }
 
     private fun registerUiListeners() {
@@ -37,25 +47,44 @@ class MainActivity : AppCompatActivity() {
                 else -> throw IllegalArgumentException()
             }
 
-            val fragmentTransaction = fragmentManager.beginTransaction()
-
-            val fragment = getFragment(fragmentTag)
-
-            fragmentTransaction.replace(activity_main_content.id, fragment, fragmentTag)
-            fragmentTransaction.addToBackStack(null)
-
-            fragmentTransaction.commit()
-            fragmentManager.executePendingTransactions()
+            navigateToFragment(fragmentTag)
 
             true
         }
     }
 
+    private fun navigateToFragment(fragmentTag: String) {
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        val fragment = getFragment(fragmentTag)
+
+        fragmentTransaction.replace(activity_main_content.id, fragment, fragmentTag)
+        fragmentTransaction.addToBackStack(null)
+
+        fragmentTransaction.commit()
+        fragmentManager.executePendingTransactions()
+    }
+
     private fun getFragment(tag: String): Fragment {
         return when(tag) {
-            searchFragmentTag -> SearchFragment()
-            historyFragmentTag -> HistoryFragment()
+            searchFragmentTag -> searchFragment
+            historyFragmentTag -> historyFragment
             else -> throw IllegalArgumentException()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val currentFragment = activity_main_content.getChildAt(0)
+
+//        val currentFragment = fragmentManager.findFragmentById(activity_main_content.id)
+        val menuItemToCheckId = when (currentFragment.tag) {
+            searchFragmentTag -> drawer_main_search
+            historyFragmentTag -> drawer_main_history
+            else -> throw IllegalArgumentException()
+        }
+
+        activity_main_navigation.setCheckedItem(menuItemToCheckId)
     }
 }
