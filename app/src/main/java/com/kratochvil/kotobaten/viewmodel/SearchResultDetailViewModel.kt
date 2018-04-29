@@ -30,10 +30,18 @@ class SearchResultDetailViewModel(
             notifyPropertyChanged(BR.searchResult)
             notifyPropertyChanged(BR.historyPercentage)
             notifyPropertyChanged(BR.favorited)
+            notifyPropertyChanged(BR.canBeAutoFavorited)
+            notifyPropertyChanged(BR.canBeManuallyFavorited)
         }
 
     var isFavorited: Boolean = false
         @Bindable get() = searchResult.isFavorited
+
+    var canBeAutoFavorited: Boolean = false
+        @Bindable get () = isFavorited && searchResult.visitsCount < SearchResult.AUTOFAVORITE_THRESHOLD
+
+    var canBeManuallyFavorited: Boolean = false
+        @Bindable get () = !isFavorited && searchResult.visitsCount >= SearchResult.AUTOFAVORITE_THRESHOLD
 
     fun initialize(activationArgs: Bundle) {
 
@@ -45,5 +53,9 @@ class SearchResultDetailViewModel(
         }
         this.searchResult = updatedSearchResult
         this.historyPercentage = updatedSearchResult.visitsCount * 100 / SearchResult.AUTOFAVORITE_THRESHOLD
+    }
+
+    fun toggleFavorite() {
+        searchResult = searchResultsRepository.toggleIsFavorited(searchResult)
     }
 }

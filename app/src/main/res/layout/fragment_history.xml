@@ -34,11 +34,8 @@
 
                 <TextView
                     android:id="@+id/history_all_or_favorites_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/ToolbarDescriptionTextBlockStyle"
                     android:text="Favorites only"
-                    android:textColor="@android:color/white"
-                    android:layout_marginEnd="@dimen/element_margin_base"
                     app:layout_constraintTop_toTopOf="@id/history_all_or_favorites_switch"
                     app:layout_constraintBottom_toBottomOf="@id/history_all_or_favorites_switch"
                     app:layout_constraintRight_toLeftOf="@id/history_all_or_favorites_switch"/>

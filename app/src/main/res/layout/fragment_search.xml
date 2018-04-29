@@ -87,7 +87,7 @@
                 app:layout_constraintTop_toTopOf="@id/search_find_icon"
                 app:layout_constraintBottom_toBottomOf="@id/search_find_icon"
                 android:drawableStart="@drawable/ic_clear_black_24dp"
-                android:background="@android:color/transparent"
+                android:background="?android:attr/selectableItemBackground"
                 android:minWidth="0dp"
                 android:visibility="@{viewModel.clearSearchTermUiVisible ? View.VISIBLE : View.GONE}"
                 android:onClick="@{() -> viewModel.clearSearchTerm()}"/>
@@ -108,7 +108,6 @@
         <ListView
             android:id="@+id/search_results_list"
             style="@style/ListViewBaseStyle"
-            android:layout_marginTop="@dimen/element_margin_base"
             app:layout_constraintTop_toBottomOf="@id/search_header_container"
             app:layout_constraintLeft_toLeftOf="parent"
             android:visibility="@{viewModel.areSearchResultsVisible ? View.VISIBLE : View.GONE}" />
