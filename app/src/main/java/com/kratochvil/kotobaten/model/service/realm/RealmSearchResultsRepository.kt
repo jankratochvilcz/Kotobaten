@@ -8,15 +8,31 @@ import io.realm.Sort
 import java.util.*
 
 class RealmSearchResultsRepository: SearchResultsRepository {
+    override fun toggleIsFavorited(searchResult: SearchResult): SearchResult {
+        val existingSearchResult = updateOrAddSearchResult(searchResult, false)
+
+        Realm.getDefaultInstance().executeTransaction {
+            existingSearchResult.isFavorited = !existingSearchResult.isFavorited
+        }
+
+        return existingSearchResult
+    }
+
     override fun onSearchResultVisited(searchResult: SearchResult)
             : SearchResult {
+        return updateOrAddSearchResult(searchResult, true)
+    }
+
+    private fun updateOrAddSearchResult(
+            searchResult: SearchResult,
+            resultVisited: Boolean): SearchResult {
         val realm = Realm.getDefaultInstance()
         val existingSearchResult = realm
                 .where(SearchResult::class.java)
                 .equalTo(SearchResult::japaneseWord.name, searchResult.japaneseWord)
                 .findFirst()
 
-        if(existingSearchResult == null) {
+        if (existingSearchResult == null) {
             realm.executeTransaction { transaction ->
                 val searchResultPreviousMaxId = transaction
                         .where(SearchResult::class.java)
@@ -33,19 +49,19 @@ class RealmSearchResultsRepository: SearchResultsRepository {
                     definition.id = searchResultDefinitionPreviousMaxId
                 }
 
-                searchResult.visitsCount = 1
+                searchResult.visitsCount = if(resultVisited) 1 else 0
+                searchResult.lastVisited = Date()
                 transaction.copyToRealm(searchResult)
             }
 
             return searchResult
         }
 
-        realm.executeTransaction {
-            existingSearchResult.visitsCount++
-            existingSearchResult.lastVisited = searchResult.lastVisited
-
-            if(existingSearchResult.visitsCount >= SearchResult.AUTOFAVORITE_THRESHOLD)
-                existingSearchResult.isFavorited = true
+        if(resultVisited) {
+            realm.executeTransaction {
+                existingSearchResult.visitsCount++
+                existingSearchResult.lastVisited = searchResult.lastVisited
+            }
         }
 
         return existingSearchResult

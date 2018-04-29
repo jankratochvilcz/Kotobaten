@@ -29,22 +29,21 @@ class SearchResultDetailViewModel(
             _searchResult = x
             notifyPropertyChanged(BR.searchResult)
             notifyPropertyChanged(BR.historyPercentage)
+            notifyPropertyChanged(BR.favorited)
         }
 
-    var isFrequent: Boolean = false
-        @Bindable get() = historyPercentage >= 100
+    var isFavorited: Boolean = false
+        @Bindable get() = searchResult.isFavorited
 
     fun initialize(activationArgs: Bundle) {
 
         this.searchResult = navigationService.getSearchResultFromBundle(activationArgs)
 
-        val updatedSearchResult = searchResultsRepository.onSearchResultVisited(searchResult)
-
+        var updatedSearchResult = searchResultsRepository.onSearchResultVisited(searchResult)
+        if(updatedSearchResult.visitsCount == 3 && !updatedSearchResult.isFavorited) {
+            updatedSearchResult = searchResultsRepository.toggleIsFavorited(updatedSearchResult)
+        }
         this.searchResult = updatedSearchResult
         this.historyPercentage = updatedSearchResult.visitsCount * 100 / SearchResult.AUTOFAVORITE_THRESHOLD
-    }
-
-    fun goBack() {
-        navigationService.goBack()
     }
 }

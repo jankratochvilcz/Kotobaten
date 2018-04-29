@@ -34,7 +34,7 @@
                     app:cpb_background_progressbar_color="@color/subtleGray"
                     app:cpb_background_progressbar_width="2dp"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:visibility="@{viewModel.isFrequent ? View.GONE : View.VISIBLE}"/>
+                    android:visibility="@{viewModel.isFavorited ? View.GONE : View.VISIBLE}"/>
 
                 <ImageView
                     android:id="@+id/search_result_is_favorited"
@@ -42,7 +42,7 @@
                     android:layout_height="@dimen/element_margin_large"
                     android:src="@drawable/ic_stars_black_24dp"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:visibility="@{viewModel.isFrequent ? View.VISIBLE : View.GONE}"/>
+                    android:visibility="@{viewModel.isFavorited ? View.VISIBLE : View.GONE}"/>
 
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.Toolbar>

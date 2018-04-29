@@ -32,7 +32,6 @@
     <style name="NavigationButtonStyle">
         <item name="android:layout_width">@dimen/button_base_size</item>
         <item name="android:layout_height">@dimen/button_base_size</item>
-        <item name="android:background">@drawable/drawer_button_inset</item>
     </style>
 
     <style name="DefaultToolbarStyle">
