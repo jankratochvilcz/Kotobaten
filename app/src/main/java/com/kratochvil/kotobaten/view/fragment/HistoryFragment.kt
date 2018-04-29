@@ -3,6 +3,7 @@ package com.kratochvil.kotobaten.view.fragment
 import android.app.Fragment
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.kratochvil.kotobaten.viewmodel.HistoryViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultAdapter
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SimpleAdapterUpdater
 import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.android.ext.android.inject
 
 class HistoryFragment: Fragment() {
@@ -47,6 +49,17 @@ class HistoryFragment: Fragment() {
             viewModel.goToSearchResultDetail(viewModel.results[position])
         }
 
+        configureActionBar()
+
         viewModel.initialize()
+    }
+
+    private fun configureActionBar() {
+        val appCompatActivity = activity as AppCompatActivity
+
+        appCompatActivity.setSupportActionBar(history_toolbar)
+        appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        appCompatActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp)
+        appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 }

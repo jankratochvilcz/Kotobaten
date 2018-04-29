@@ -41,10 +41,6 @@ class HistoryViewModel(
         allResults = searchResultsRepository.getVisitedSearchResults()
     }
 
-    fun openNavigation() {
-        navigationService.openNavigationDrawer()
-    }
-
     fun goToSearchResultDetail(searchResult: SearchResult) {
         navigationService.navigateToSearchResultDetail(searchResult)
     }

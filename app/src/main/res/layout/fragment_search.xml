@@ -15,79 +15,84 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.activity.MainActivity"
-        android:padding="@dimen/activity_margin">
+        tools:context=".view.activity.MainActivity">
 
-        <Button
-            android:id="@+id/search_result_navigation_button"
-            style="@style/NavigationButtonStyle"
-            android:onClick="@{() -> viewModel.openNavigation()}"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/search_toolbar"
+            style="@style/DefaultToolbarStyle"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/search_find_icon"
-            android:layout_width="@dimen/element_margin_large"
-            android:layout_height="@dimen/element_margin_large"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="@dimen/textSize_extraExtraLarge"
-            android:layout_marginBottom="@dimen/element_margin_large"
-            android:layout_weight="0"
-            android:src="@drawable/ic_search_accented_24dp"
-            app:layout_constraintTop_toBottomOf="@id/search_result_navigation_button"
-            app:layout_constraintLeft_toLeftOf="@id/search_result_navigation_button"
-            app:layout_constraintRight_toRightOf="@id/search_result_navigation_button" />
-
-        <EditText
-            android:id="@+id/search_search_field"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/search_header_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:textSize="32dp"
-            android:hint="Search"
-            android:layout_marginStart="@dimen/element_margin_large"
-            android:layout_marginEnd="@dimen/element_margin_large"
-            android:layout_marginBottom="4dp"
-            android:imeOptions="actionSearch"
-            android:imeActionLabel="Search"
-            android:imeActionId="1"
-            android:text="@={viewModel.searchTerm}"
-            android:textColor="@color/colorPrimaryDark"
-            android:background="@android:color/transparent"
-            app:layout_constraintTop_toTopOf="@id/search_find_icon"
-            app:layout_constraintBottom_toBottomOf="@id/search_find_icon"
-            app:layout_constraintLeft_toRightOf="@id/search_find_icon"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread"/>
+            android:paddingTop="@dimen/element_margin_large"
+            android:paddingBottom="@dimen/element_margin_base"
+            android:paddingStart="16dp"
+            android:paddingEnd="@dimen/activity_margin"
+            app:layout_constraintTop_toBottomOf="@id/search_toolbar">
 
+            <ImageView
+                android:id="@+id/search_find_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0"
+                android:src="@drawable/ic_search_accented_24dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
+            <EditText
+                android:id="@+id/search_search_field"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="Search"
+                android:textSize="24sp"
+                android:layout_marginStart="@dimen/element_margin_large"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:layout_marginBottom="4dp"
+                android:imeOptions="actionSearch"
+                android:imeActionLabel="Search"
+                android:imeActionId="1"
+                android:text="@={viewModel.searchTerm}"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toTopOf="@id/search_find_icon"
+                app:layout_constraintBottom_toBottomOf="@id/search_find_icon"
+                app:layout_constraintLeft_toRightOf="@id/search_find_icon"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread"/>
 
-        <ProgressBar
-            android:id="@+id/search_loading_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/search_search_field"
-            app:layout_constraintBottom_toBottomOf="@id/search_search_field"
-            android:minHeight="@dimen/element_margin_large"
-            android:maxHeight="@dimen/element_margin_large"
-            android:maxWidth="@dimen/element_margin_large"
-            android:minWidth="@dimen/element_margin_large"
-            android:visibility="@{viewModel.loadingResults ? View.VISIBLE : View.GONE}"/>
+            <ProgressBar
+                android:id="@+id/search_loading_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/search_search_field"
+                app:layout_constraintBottom_toBottomOf="@id/search_search_field"
+                android:minHeight="@dimen/element_margin_large"
+                android:maxHeight="@dimen/element_margin_large"
+                android:maxWidth="@dimen/element_margin_large"
+                android:minWidth="@dimen/element_margin_large"
+                android:visibility="@{viewModel.loadingResults ? View.VISIBLE : View.GONE}"/>
 
-        <Button
-            android:id="@+id/search_clear_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/search_search_field"
-            app:layout_constraintBottom_toBottomOf="@id/search_search_field"
-            android:layout_marginTop="8dp"
-            android:drawableLeft="@drawable/ic_clear_black_24dp"
-            android:background="@android:color/transparent"
-            android:minWidth="0dp"
-            android:paddingLeft="@dimen/element_margin_large"
-            android:visibility="@{viewModel.clearSearchTermUiVisible ? View.VISIBLE : View.GONE}"
-            android:onClick="@{() -> viewModel.clearSearchTerm()}"/>
+            <Button
+                android:id="@+id/search_clear_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/search_find_icon"
+                app:layout_constraintBottom_toBottomOf="@id/search_find_icon"
+                android:drawableStart="@drawable/ic_clear_black_24dp"
+                android:background="@android:color/transparent"
+                android:minWidth="0dp"
+                android:visibility="@{viewModel.clearSearchTermUiVisible ? View.VISIBLE : View.GONE}"
+                android:onClick="@{() -> viewModel.clearSearchTerm()}"/>
+
+        </android.support.constraint.ConstraintLayout>
 
         <ImageView
             android:id="@+id/search_no_results_icon"
@@ -95,7 +100,7 @@
             android:layout_height="96dp"
             android:src="@drawable/sakura_leaf_lightgray"
             android:layout_marginTop="144dp"
-            app:layout_constraintTop_toBottomOf="@id/search_search_field"
+            app:layout_constraintTop_toBottomOf="@id/search_header_container"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:visibility="@{viewModel.emptyScreenUiVisible ? View.VISIBLE : View.GONE}"/>
@@ -103,9 +108,9 @@
         <ListView
             android:id="@+id/search_results_list"
             style="@style/ListViewBaseStyle"
-            android:layout_marginTop="@dimen/element_margin_large"
-            app:layout_constraintTop_toBottomOf="@id/search_search_field"
-            app:layout_constraintLeft_toLeftOf="@id/search_search_field"
+            android:layout_marginTop="@dimen/element_margin_base"
+            app:layout_constraintTop_toBottomOf="@id/search_header_container"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:visibility="@{viewModel.areSearchResultsVisible ? View.VISIBLE : View.GONE}" />
 
     </android.support.constraint.ConstraintLayout>

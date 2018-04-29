@@ -11,39 +11,45 @@
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/activity_margin">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/history_navigation_button"
-            style="@style/NavigationButtonStyle"
-            android:onClick="@{() -> viewModel.openNavigation()}"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/history_toolbar"
+            style="@style/DefaultToolbarStyle"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/history_all_or_favorites_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/history_navigation_button"
-            app:layout_constraintBottom_toBottomOf="@id/history_navigation_button"
-            app:layout_constraintRight_toLeftOf="parent"
-            android:checked="@={viewModel.showOnlyFavoriteResults}"/>
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/history_all_or_favorites_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Favorites only"
-            android:layout_marginEnd="@dimen/element_margin_large"
-            app:layout_constraintTop_toTopOf="@id/history_all_or_favorites_switch"
-            app:layout_constraintBottom_toBottomOf="@id/history_all_or_favorites_switch"
-            app:layout_constraintRight_toLeftOf="@id/history_all_or_favorites_switch"/>
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/history_all_or_favorites_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/activity_margin"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="parent"
+                    android:checked="@={viewModel.showOnlyFavoriteResults}" />
+
+                <TextView
+                    android:id="@+id/history_all_or_favorites_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Favorites only"
+                    android:textColor="@android:color/white"
+                    android:layout_marginEnd="@dimen/element_margin_base"
+                    app:layout_constraintTop_toTopOf="@id/history_all_or_favorites_switch"
+                    app:layout_constraintBottom_toBottomOf="@id/history_all_or_favorites_switch"
+                    app:layout_constraintRight_toLeftOf="@id/history_all_or_favorites_switch"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.Toolbar>
 
         <ListView
             android:id="@+id/history_results_list_view"
             style="@style/ListViewBaseStyle"
-            android:layout_marginTop="@dimen/element_margin_large"
-            app:layout_constraintTop_toBottomOf="@id/history_all_or_favorites_switch"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_chainStyle="spread"/>
+            app:layout_constraintTop_toBottomOf="@id/history_toolbar"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

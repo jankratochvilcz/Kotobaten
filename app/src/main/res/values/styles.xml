@@ -6,7 +6,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:background">#F4F4F4</item>
         <item name="android:textColorHint">@color/subtleGray</item>
     </style>
 
@@ -31,10 +30,16 @@
     </style>
 
     <style name="NavigationButtonStyle">
-        <item name="android:layout_width">@dimen/element_margin_large</item>
-        <item name="android:layout_height">@dimen/element_margin_large</item>
-        <item name="android:padding">@dimen/element_margin_large</item>
-        <item name="android:background">@drawable/ic_menu_black_24dp</item>
+        <item name="android:layout_width">@dimen/button_base_size</item>
+        <item name="android:layout_height">@dimen/button_base_size</item>
+        <item name="android:background">@drawable/drawer_button_inset</item>
+    </style>
+
+    <style name="DefaultToolbarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
     </style>
 
 </resources>

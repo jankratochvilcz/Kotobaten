@@ -4,10 +4,12 @@ import android.app.Fragment
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toolbar
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.databinding.FragmentSearchBinding
@@ -42,7 +44,6 @@ class SearchFragment: Fragment() {
                 container,
                 false)
 
-
         binding.viewModel = viewModel
 
         return binding.root
@@ -56,6 +57,17 @@ class SearchFragment: Fragment() {
                 { SearchResultAdapter(context, it.results, false) })
 
         registerUiListeners()
+
+        configureActionBar()
+    }
+
+    private fun configureActionBar() {
+        val appCompatActivity = activity as AppCompatActivity
+
+        appCompatActivity.setSupportActionBar(search_toolbar)
+        appCompatActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        appCompatActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp)
+        appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     private fun registerUiListeners() {

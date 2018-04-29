@@ -3,7 +3,9 @@ package com.kratochvil.kotobaten.view.activity
 import android.app.Fragment
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.R.id.drawer_main_history
 import com.kratochvil.kotobaten.R.id.drawer_main_search
@@ -34,6 +36,15 @@ class MainActivity : AppCompatActivity() {
         registerUiListeners()
 
         navigateToFragment(searchFragmentTag)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item?.itemId == android.R.id.home) {
+            activity_main_drawer.openDrawer(GravityCompat.START)
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun registerUiListeners() {

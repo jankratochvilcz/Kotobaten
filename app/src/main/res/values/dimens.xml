@@ -5,9 +5,12 @@
     <dimen name="textSize_extraLarge">30dp</dimen>
     <dimen name="textSize_extraExtraLarge">42dp</dimen>
 
-    <dimen name="activity_margin">28dp</dimen>
+    <dimen name="activity_margin">12dp</dimen>
 
     <dimen name="element_margin_base">12dp</dimen>
     <dimen name="element_margin_large">24dp</dimen>
-    <dimen name="element_margin_extra_large">36dp</dimen>
+    <dimen name="element_margin_extra_large">32dp</dimen>
+
+    <dimen name="button_base_size">48dp</dimen>
+    <dimen name="button_base_padding">@dimen/element_margin_base</dimen>
 </resources>
