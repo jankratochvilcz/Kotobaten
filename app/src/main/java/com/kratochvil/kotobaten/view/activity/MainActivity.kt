@@ -1,14 +1,14 @@
 package com.kratochvil.kotobaten.view.activity
 
 import android.app.Fragment
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.kratochvil.kotobaten.R
-import com.kratochvil.kotobaten.R.id.drawer_main_history
-import com.kratochvil.kotobaten.R.id.drawer_main_search
+import com.kratochvil.kotobaten.R.id.*
 import com.kratochvil.kotobaten.databinding.ActivityMainBinding
 import com.kratochvil.kotobaten.view.fragment.HistoryFragment
 import com.kratochvil.kotobaten.view.fragment.SearchFragment
@@ -52,13 +52,15 @@ class MainActivity : AppCompatActivity() {
             selectedMenuItem.isChecked = true
             activity_main_drawer.closeDrawers()
 
-            val fragmentTag = when (selectedMenuItem.itemId) {
-                drawer_main_search -> searchFragmentTag
-                drawer_main_history -> historyFragmentTag
+            when (selectedMenuItem.itemId) {
+                drawer_main_search -> navigateToFragment(searchFragmentTag)
+                drawer_main_history -> navigateToFragment(historyFragmentTag)
+                drawer_main_about -> {
+                    val intent = Intent(this, AboutActivity::class.java)
+                    startActivity(intent)
+                }
                 else -> throw IllegalArgumentException()
             }
-
-            navigateToFragment(fragmentTag)
 
             true
         }

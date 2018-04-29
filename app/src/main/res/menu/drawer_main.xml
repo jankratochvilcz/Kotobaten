@@ -11,5 +11,9 @@
             android:id="@+id/drawer_main_history"
             android:icon="@drawable/ic_history_accented_24dp"
             android:title="History" />
+        <item
+            android:id="@+id/drawer_main_about"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="About" />
     </group>
 </menu>
