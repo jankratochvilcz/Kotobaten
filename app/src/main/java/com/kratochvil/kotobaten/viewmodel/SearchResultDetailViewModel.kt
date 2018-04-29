@@ -38,7 +38,7 @@ class SearchResultDetailViewModel(
         @Bindable get() = searchResult.isFavorited
 
     var canBeAutoFavorited: Boolean = false
-        @Bindable get () = isFavorited && searchResult.visitsCount < SearchResult.AUTOFAVORITE_THRESHOLD
+        @Bindable get () = !isFavorited && searchResult.visitsCount < SearchResult.AUTOFAVORITE_THRESHOLD
 
     var canBeManuallyFavorited: Boolean = false
         @Bindable get () = !isFavorited && searchResult.visitsCount >= SearchResult.AUTOFAVORITE_THRESHOLD
