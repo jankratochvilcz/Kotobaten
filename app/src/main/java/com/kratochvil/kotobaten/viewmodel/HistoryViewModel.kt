@@ -1,16 +1,16 @@
 package com.kratochvil.kotobaten.viewmodel
 
-import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.model.entity.SearchResult
-import com.kratochvil.kotobaten.model.service.NavigationService
+import com.kratochvil.kotobaten.model.service.navigation.NavigationService
 import com.kratochvil.kotobaten.model.service.SearchResultsRepository
+import com.kratochvil.kotobaten.model.service.navigation.KotobatenActivity
 
 class HistoryViewModel(
         private val searchResultsRepository: SearchResultsRepository,
         private val navigationService: NavigationService
-): BaseObservable() {
+): ViewModelBase(navigationService) {
 
     private var _allResults: List<SearchResult> = listOf()
     private var _showOnlyFavoriteResults = false
@@ -39,6 +39,7 @@ class HistoryViewModel(
 
     fun initialize() {
         allResults = searchResultsRepository.getVisitedSearchResults()
+        onNavigatedTo(KotobatenActivity.HISTORY)
     }
 
     fun goToSearchResultDetail(searchResult: SearchResult) {

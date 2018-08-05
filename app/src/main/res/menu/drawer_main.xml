@@ -5,8 +5,7 @@
         <item
             android:id="@+id/drawer_main_search"
             android:icon="@drawable/ic_search_accented_24dp"
-            android:title="Search"
-            android:checked="true"/>
+            android:title="Search"/>
         <item
             android:id="@+id/drawer_main_history"
             android:icon="@drawable/ic_history_accented_24dp"

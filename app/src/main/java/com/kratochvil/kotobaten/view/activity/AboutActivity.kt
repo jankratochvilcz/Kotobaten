@@ -2,13 +2,11 @@ package com.kratochvil.kotobaten.view.activity
 
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.kratochvil.kotobaten.R
 import kotlinx.android.synthetic.main.activity_about.*
-import kotlinx.android.synthetic.main.activity_search_result.*
 
-class AboutActivity : AppCompatActivity() {
+class AboutActivity : ActivityBase() {
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)

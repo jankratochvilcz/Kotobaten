@@ -5,13 +5,14 @@ import android.databinding.Bindable
 import android.os.Bundle
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.model.entity.SearchResult
-import com.kratochvil.kotobaten.model.service.NavigationService
+import com.kratochvil.kotobaten.model.service.navigation.NavigationService
 import com.kratochvil.kotobaten.model.service.SearchResultsRepository
+import com.kratochvil.kotobaten.model.service.navigation.KotobatenActivity
 
 class SearchResultDetailViewModel(
         private val searchResultsRepository: SearchResultsRepository,
         private val navigationService: NavigationService
-) : BaseObservable() {
+) : ViewModelBase(navigationService) {
 
     private var _searchResult = SearchResult()
     private var _historyPercentage = 0
@@ -53,6 +54,8 @@ class SearchResultDetailViewModel(
         }
         this.searchResult = updatedSearchResult
         this.historyPercentage = updatedSearchResult.visitsCount * 100 / SearchResult.AUTOFAVORITE_THRESHOLD
+
+        onNavigatedTo(KotobatenActivity.SEARCH)
     }
 
     fun toggleFavorite() {

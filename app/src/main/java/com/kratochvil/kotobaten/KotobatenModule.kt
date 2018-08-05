@@ -6,10 +6,12 @@ import android.content.Intent
 import android.view.inputmethod.InputMethodManager
 import com.kratochvil.kotobaten.model.service.*
 import com.kratochvil.kotobaten.model.service.injection.InjectionParams
+import com.kratochvil.kotobaten.model.service.navigation.NavigationService
 import com.kratochvil.kotobaten.model.service.realm.RealmSearchResultsRepository
 import com.kratochvil.kotobaten.view.services.PageNavigationService
 import com.kratochvil.kotobaten.view.services.VirtualKeyboardService
 import com.kratochvil.kotobaten.viewmodel.HistoryViewModel
+import com.kratochvil.kotobaten.viewmodel.MainViewModel
 import com.kratochvil.kotobaten.viewmodel.SearchResultDetailViewModel
 import com.kratochvil.kotobaten.viewmodel.SearchViewModel
 import org.koin.dsl.module.Module
@@ -23,7 +25,7 @@ class KotobatenModule {
 
             factory { JishoApiService(get()) }
 
-            factory { params ->
+            bean { params ->
                 PageNavigationService(
                         { applicationContext },
                         { startActivity(it) },
@@ -43,6 +45,7 @@ class KotobatenModule {
             factory { params -> HistoryViewModel(get { params.values }, get { params.values }) }
             factory { params -> SearchResultDetailViewModel(get { params.values}, get { params.values }) }
             factory { params -> SearchViewModel(get { params.values }, get { params.values}) }
+            factory { params -> MainViewModel(get {params.values}) }
         }
     }
 }

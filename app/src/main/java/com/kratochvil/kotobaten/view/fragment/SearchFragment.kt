@@ -45,6 +45,7 @@ class SearchFragment: Fragment() {
                 false)
 
         binding.viewModel = viewModel
+        viewModel.initialize()
 
         return binding.root
     }
