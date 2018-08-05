@@ -16,9 +16,9 @@ import com.kratochvil.kotobaten.model.service.navigation.KotobatenActivity
 import com.kratochvil.kotobaten.view.fragment.HistoryFragment
 import com.kratochvil.kotobaten.view.fragment.SearchFragment
 import com.kratochvil.kotobaten.viewmodel.MainViewModel
-import com.kratochvil.kotobaten.viewmodel.SearchResultDetailViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
+
 
 class MainActivity : ActivityBase() {
     private val searchFragmentTag = "searchFragment"
@@ -60,6 +60,8 @@ class MainActivity : ActivityBase() {
 
                     if(menuItemToCheck != null)
                         menuItemToCheck.isChecked = true
+
+                    activity_main_drawer.closeDrawers()
                 }
             }
         })
@@ -78,8 +80,6 @@ class MainActivity : ActivityBase() {
 
     private fun registerUiListeners() {
         activity_main_navigation.setNavigationItemSelectedListener { selectedMenuItem ->
-            activity_main_drawer.closeDrawers()
-
             when (selectedMenuItem.itemId) {
                 drawer_main_search -> navigateToFragment(searchFragmentTag)
                 drawer_main_history -> navigateToFragment(historyFragmentTag)
@@ -96,6 +96,7 @@ class MainActivity : ActivityBase() {
 
     private fun navigateToFragment(fragmentTag: String) {
         val fragmentTransaction = fragmentManager.beginTransaction()
+//        fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
 
         val fragment = getFragment(fragmentTag)
 

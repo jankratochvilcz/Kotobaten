@@ -39,6 +39,9 @@ class HistoryViewModel(
 
     fun initialize() {
         allResults = searchResultsRepository.getVisitedSearchResults()
+    }
+
+    fun onInitializationFinished() {
         onNavigatedTo(KotobatenActivity.HISTORY)
     }
 

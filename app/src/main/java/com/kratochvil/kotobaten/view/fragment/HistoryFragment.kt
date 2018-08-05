@@ -16,13 +16,14 @@ import com.kratochvil.kotobaten.viewmodel.HistoryViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultAdapter
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SimpleAdapterUpdater
 import kotlinx.android.synthetic.main.fragment_history.*
-import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.android.ext.android.inject
 
 class HistoryFragment: Fragment() {
-    private val viewModel by inject<HistoryViewModel> { mapOf(
-            InjectionParams.GET_CURRENT_ACTIVITY_FUN to { activity }
-    ) }
+    private val viewModel by inject<HistoryViewModel> {
+        mapOf(
+                InjectionParams.GET_CURRENT_ACTIVITY_FUN to { activity }
+        )
+    }
 
     private var resultsAdapterUpdater: SimpleAdapterUpdater<SearchResult, HistoryViewModel>? = null
 
@@ -48,6 +49,15 @@ class HistoryFragment: Fragment() {
         history_results_list_view.setOnItemClickListener { _, _, position, _ ->
             viewModel.goToSearchResultDetail(viewModel.results[position])
         }
+
+        // Performance optimization to make delay the closing of the drawer to keep the animation fluent when possible
+        history_results_list_view.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+            override fun onLayoutChange(v: View?, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
+                history_results_list_view.removeOnLayoutChangeListener(this)
+
+                viewModel.onInitializationFinished()
+            }
+        })
 
         configureActionBar()
 

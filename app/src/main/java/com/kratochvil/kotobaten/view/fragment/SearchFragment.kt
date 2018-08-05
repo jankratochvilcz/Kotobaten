@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toolbar
 import com.kratochvil.kotobaten.BR
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.databinding.FragmentSearchBinding
@@ -19,12 +18,14 @@ import com.kratochvil.kotobaten.viewmodel.SearchViewModel
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SearchResultAdapter
 import com.kratochvil.kotobaten.viewmodel.infrastructure.SimpleAdapterUpdater
 import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.fragment_search.view.*
 import org.koin.android.ext.android.inject
 
 class SearchFragment: Fragment() {
     private val viewModel by inject<SearchViewModel> { mapOf(
             InjectionParams.GET_CURRENT_ACTIVITY_FUN to { activity },
             InjectionParams.SHOW_KEYBOARD_FUN to {
+                val field = view.search_search_field
                 this.search_search_field.requestFocus()
                 val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.toggleSoftInputFromWindow(
@@ -37,7 +38,6 @@ class SearchFragment: Fragment() {
     private var resultsAdapterUpdater: SimpleAdapterUpdater<SearchResult, SearchViewModel>? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
         val binding = DataBindingUtil.inflate<FragmentSearchBinding>(
                 inflater ?: throw IllegalArgumentException(),
                 R.layout.fragment_search,

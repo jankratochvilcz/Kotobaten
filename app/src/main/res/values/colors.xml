@@ -6,4 +6,5 @@
     <color name="subtleGray">#D8D8D8</color>
     <color name="foreground_base">@android:color/black</color>
     <color name="darkGray">#666666</color>
+    <color name="gold">#ffd700</color>
 </resources>

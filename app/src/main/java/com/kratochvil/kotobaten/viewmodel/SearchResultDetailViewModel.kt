@@ -1,6 +1,5 @@
 package com.kratochvil.kotobaten.viewmodel
 
-import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.os.Bundle
 import com.kratochvil.kotobaten.BR
@@ -31,18 +30,14 @@ class SearchResultDetailViewModel(
             notifyPropertyChanged(BR.searchResult)
             notifyPropertyChanged(BR.historyPercentage)
             notifyPropertyChanged(BR.favorited)
-            notifyPropertyChanged(BR.canBeAutoFavorited)
             notifyPropertyChanged(BR.canBeManuallyFavorited)
         }
 
     var isFavorited: Boolean = false
         @Bindable get() = searchResult.isFavorited
 
-    var canBeAutoFavorited: Boolean = false
-        @Bindable get () = !isFavorited && searchResult.visitsCount < SearchResult.AUTOFAVORITE_THRESHOLD
-
     var canBeManuallyFavorited: Boolean = false
-        @Bindable get () = !isFavorited && searchResult.visitsCount >= SearchResult.AUTOFAVORITE_THRESHOLD
+        @Bindable get () = !isFavorited
 
     fun initialize(activationArgs: Bundle) {
 

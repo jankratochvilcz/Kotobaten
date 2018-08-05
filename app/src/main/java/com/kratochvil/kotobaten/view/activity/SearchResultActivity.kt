@@ -45,8 +45,6 @@ class SearchResultActivity : ActivityBase() {
     private fun onViewModelPropertyChanged(propertyId: Int) {
         if(propertyId == BR.searchResult)
             search_result_english_meanings.adapter = SearchResultDetailAdapter(this, viewModel.searchResult.definitions)
-        else if(propertyId == BR.historyPercentage)
-            search_result_autofavorite_progress.setProgressWithAnimation(viewModel.historyPercentage.toFloat())
     }
 
     private fun configureActionBar() {

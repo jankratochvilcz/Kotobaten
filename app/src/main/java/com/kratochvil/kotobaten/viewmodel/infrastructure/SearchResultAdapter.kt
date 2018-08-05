@@ -1,15 +1,13 @@
 package com.kratochvil.kotobaten.viewmodel.infrastructure
 
 import android.content.Context
-import android.content.res.Resources
 import android.support.constraint.ConstraintLayout
+import android.text.format.DateFormat
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.kratochvil.kotobaten.R
 import com.kratochvil.kotobaten.model.entity.SearchResult
-import android.text.format.DateFormat
-import android.util.TypedValue
 import java.util.*
 
 class SearchResultAdapter(
@@ -19,13 +17,13 @@ class SearchResultAdapter(
     : SimpleAdapterBase<SearchResult>(context, list) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = inflater.inflate(R.layout.search_result, parent, false)
+        val view = convertView ?: inflater.inflate(R.layout.search_result, parent, false)
 
         val kanjiTextView = view.findViewById<TextView>(R.id.search_result_kanji_text_view)
         val kanaTextView = view.findViewById<TextView>(R.id.search_result_kana_text_view)
         val englishTextView = view.findViewById<TextView>(R.id.search_result_english_text_view)
 
-        val searchResult = getItem(position) as SearchResult
+        val searchResult = getItemTyped(position)
 
         kanjiTextView.text = searchResult.japaneseWord
         kanaTextView.text = searchResult.japaneseReading
@@ -46,7 +44,7 @@ class SearchResultAdapter(
             return view
         }
 
-        val currentDateWithoutTime = getDateWithoutTime(getItemTyped(position).lastVisited)
+        val currentDateWithoutTime = getDateWithoutTime(searchResult.lastVisited)
         val previousDateWithoutTime = getDateWithoutTime(getItemTyped(position - 1).lastVisited)
         if(currentDateWithoutTime < previousDateWithoutTime)
             renderGroupHeader(view, parent, position)
