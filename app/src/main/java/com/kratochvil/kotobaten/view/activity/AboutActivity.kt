@@ -1,15 +1,22 @@
 package com.kratochvil.kotobaten.view.activity
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.MenuItem
 import com.kratochvil.kotobaten.R
+import com.kratochvil.kotobaten.databinding.ActivityAboutBinding
+import com.kratochvil.kotobaten.databinding.ActivitySearchResultBinding
 import kotlinx.android.synthetic.main.activity_about.*
 
 class AboutActivity : ActivityBase() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val binding = DataBindingUtil.setContentView<ActivityAboutBinding>(
+                this,
+                R.layout.activity_about)
 
         configureActionBar()
     }

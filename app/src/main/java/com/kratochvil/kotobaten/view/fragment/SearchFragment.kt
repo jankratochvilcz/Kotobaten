@@ -25,7 +25,6 @@ class SearchFragment: Fragment() {
     private val viewModel by inject<SearchViewModel> { mapOf(
             InjectionParams.GET_CURRENT_ACTIVITY_FUN to { activity },
             InjectionParams.SHOW_KEYBOARD_FUN to {
-                val field = view.search_search_field
                 this.search_search_field.requestFocus()
                 val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.toggleSoftInputFromWindow(
@@ -80,5 +79,12 @@ class SearchFragment: Fragment() {
         search_results_list.setOnItemClickListener { _, _, position, _ ->
             viewModel.goToSearchResultDetail(viewModel.results[position])
         }
+
+        search_no_results_icon.setOnClickListener { displayOnboarding() }
+    }
+
+    private fun displayOnboarding() {
+        val newFragment = OnboardingHelpFragment()
+        newFragment.show(fragmentManager, "onboarding")
     }
 }

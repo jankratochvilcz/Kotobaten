@@ -14,6 +14,7 @@ import com.kratochvil.kotobaten.databinding.ActivityMainBinding
 import com.kratochvil.kotobaten.model.service.injection.InjectionParams
 import com.kratochvil.kotobaten.model.service.navigation.KotobatenActivity
 import com.kratochvil.kotobaten.view.fragment.HistoryFragment
+import com.kratochvil.kotobaten.view.fragment.OnboardingHelpFragment
 import com.kratochvil.kotobaten.view.fragment.SearchFragment
 import com.kratochvil.kotobaten.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*

@@ -1,10 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/about_toolbar"
-        style="@style/DefaultToolbarStyle"
-        app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/about_toolbar"
+            style="@style/DefaultToolbarStyle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/element_margin_base"
+            style="@style/TextViewBaseStyle"
+            android:text="Kotobaten came about to help you figure out which words are worth learning for you. "/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/element_margin_base"
+            style="@style/TextViewBaseStyle"
+            android:autoLink="all"
+            android:text="The app is just starting out, so feedback is greatly appreciated. Let's talk about what you'd like to see in future versions at kotobaten@outlook.com "/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/element_margin_base"
+            android:autoLink="all"
+            android:text="Kotobaten is powered by Jisho.org, a powerful Japanese-English dictionary. Jisho in turn uses a few different sources:"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:padding="@dimen/element_margin_base"
+            android:text="- JMdict: http://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:padding="@dimen/element_margin_base"
+            android:text="- JMnedict: http://www.edrdg.org/enamdict/enamdict_doc.html"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:padding="@dimen/element_margin_base"
+            android:text="- KANJIDIC2: http://www.edrdg.org/wiki/index.php/KANJIDIC_Project"/>
+    </LinearLayout>
+
+</layout>
