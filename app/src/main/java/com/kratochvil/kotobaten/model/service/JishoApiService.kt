@@ -14,7 +14,7 @@ class JishoApiService(
         private val searchResultSerializationService: SearchResultSerializationService
 ) {
     fun search(term: String): List<SearchResult> {
-        val urlString = "http://jisho.org/api/v1/search/words?keyword=$term"
+        val urlString = "https://jisho.org/api/v1/search/words?keyword=$term"
         val targetUrl = URL(urlString)
         val connection = targetUrl.openConnection() as HttpURLConnection
 
