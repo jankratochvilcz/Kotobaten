@@ -16,6 +16,7 @@ class SearchViewModel(
     private var _loadingResults = false
     private var _searchTerm = ""
     private var _results = listOf<SearchResult>()
+    private var _isNoResultsMessageVisible = false
 
     var loadingResults: Boolean
         @Bindable get() = _loadingResults
@@ -24,25 +25,39 @@ class SearchViewModel(
 
             notifyPropertyChanged(BR.loadingResults)
             notifyPropertyChanged(BR.clearSearchTermUiVisible)
+            notifyPropertyChanged(BR.noResultsMessage)
+            notifyPropertyChanged(BR.noResultsMessageVisible)
         }
 
     var searchTerm: String
         @Bindable get() = _searchTerm
         set (x) {
+            if(_searchTerm == x)
+                return
+
             _searchTerm = x
+            isNoResultsMessageVisible = false
 
             notifyPropertyChanged(BR.searchTerm)
             notifyPropertyChanged(BR.clearSearchTermUiVisible)
             notifyPropertyChanged(BR.canSearch)
+            notifyPropertyChanged(BR.noResultsMessage)
+            notifyPropertyChanged(BR.noResultsMessageVisible)
         }
 
     var results: List<SearchResult>
     @Bindable get() = _results
     set (x) {
         _results = x
+
+        if(!results.any())
+            isNoResultsMessageVisible = true
+
         notifyPropertyChanged(BR.areSearchResultsVisible)
         notifyPropertyChanged(BR.emptyScreenUiVisible)
         notifyPropertyChanged(BR.results)
+        notifyPropertyChanged(BR.noResultsMessage)
+        notifyPropertyChanged(BR.noResultsMessageVisible)
     }
 
     var isClearSearchTermUiVisible: Boolean = false
@@ -57,11 +72,27 @@ class SearchViewModel(
     var canSearch: Boolean = false
         @Bindable get() = searchTerm.any()
 
+    var noResultsMessage: String = ""
+        @Bindable get() = "No results for \"" + searchTerm + "\""
+
+    var isNoResultsMessageVisible: Boolean
+        @Bindable get() = _isNoResultsMessageVisible
+        set (x) {
+            if(_isNoResultsMessageVisible == x)
+                return
+
+            _isNoResultsMessageVisible = x
+
+            notifyPropertyChanged(BR.noResultsMessageVisible)
+        }
+
     fun initialize() {
         navigationService.currentActivity = KotobatenActivity.SEARCH
     }
 
     fun search() {
+        isNoResultsMessageVisible = false
+
         if(!canSearch)
             return
 

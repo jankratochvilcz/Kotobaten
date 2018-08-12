@@ -29,6 +29,10 @@
         <item name="android:textSize">@dimen/textSize_base</item>
     </style>
 
+    <style name="SubtleTextViewStyle" parent="TextViewBaseStyle">
+        <item name="android:textColor">@color/subtleGray</item>
+    </style>
+
     <style name="NavigationButtonStyle">
         <item name="android:layout_width">@dimen/button_base_size</item>
         <item name="android:layout_height">@dimen/button_base_size</item>
