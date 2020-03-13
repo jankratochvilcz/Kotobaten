@@ -4,7 +4,7 @@ jobs:
       - image: cimg/base:2020.01
     steps:
       - twist/notify:
-          webhook: webhook
+          webhook: https://twist.com/api/v3/integration_incoming/post_data?install_id=132545&install_token=132545_13ca703e90e9d66b04169fc6df471b6a
 orbs:
   twist: doist/twist@0.0.1
 version: 2.1
