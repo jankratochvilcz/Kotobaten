@@ -5,12 +5,15 @@ orbs:
   # Declare a dependency on the welcome-orb
   twist: doist/twist@0.0.1
   welcome: circleci/welcome-orb@0.4.1
+jobs:
+  build:
+    steps:
+      - twist/notify:
+          webhook: webhook
 # Orchestrate or schedule a set of jobs
 workflows:
   # Name the workflow "welcome"
   welcome:
     # Run the welcome/run job in its own container
     jobs:
-      steps:
-      - twist/notify:
-          webhook: webhook
+      build
